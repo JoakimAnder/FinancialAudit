@@ -1,18 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Content Remove="Utilities\LoaderView.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Utilities\LoaderView.razor" />
-  </ItemGroup>
 
 
   <ItemGroup>

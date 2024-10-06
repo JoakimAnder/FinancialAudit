@@ -1,0 +1,13 @@
+﻿<Microsoft.AspNetCore.Components.Forms.InputText Value="@Value" ValueChanged="@ValueChanged" ValueExpression="@ValueExpression" />
+
+@code {
+    [Parameter, EditorRequired]
+    public string Value { get; set; } = default!;
+
+    [Parameter]
+    public EventCallback<string> ValueChanged { get; set; } = default!;
+
+    [Parameter]
+    public System.Linq.Expressions.Expression<Func<string>> ValueExpression { get; set; } = default!;
+
+}
