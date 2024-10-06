@@ -1,0 +1,73 @@
+﻿@using FinancialAudit.UI.Components.Utilites
+@using FinancialAudit.UI.OfflineApp.Components.Pages.Categories.Models
+@using FinancialAudit.UI.OfflineApp.Helpers.Models
+
+<table class="table w-100">
+	<thead>
+		<tr>
+			<th class="w-50">Name</th>
+			<th class="w-50">Description</th>
+			<th style="width:100px"></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var model in Data)
+		{
+			<tr>
+				<td>
+					@if (model.IsEditable)
+					{
+						<TextInput @bind-Value="@model.Name" />
+					}
+					else
+					{
+						@model.Name
+					}
+				</td>
+				<td>
+					@if (model.IsEditable)
+					{
+						<TextInput @bind-Value="@model.Description" />
+					}
+					else
+					{
+						@model.Description
+					}
+				</td>
+				<td class="d-flex">
+					@if (model.Loader.IsLoading)
+					{
+						<div class="d-grid grid-center-items">
+							<ActivityIndicator />
+						</div>
+					}
+					else if (model.IsEditable)
+					{
+						<IconButton Icon="Icons.Save" OnClicked="() => OnSaveEdit(model)" />
+						<IconButton Icon="Icons.Cancel" OnClicked="model.CancelEdit" />
+					}
+					else
+					{
+						<IconButton Icon="Icons.Edit" OnClicked="model.StartEdit" />
+					}
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+@code {
+
+	[Parameter]
+	public IEnumerable<CategoryVM> Data { get; set; } = [];
+
+	[Parameter]
+	public EventCallback<CategoryVM> SaveEdit { get; set; } = default!;
+
+
+	private Task OnSaveEdit(CategoryVM category)
+	{
+		return SaveEdit.InvokeAsync(category);
+	}
+
+}

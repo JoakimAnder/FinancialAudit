@@ -1,0 +1,11 @@
+@using FinancialAudit.UI.Components.Icons
+
+<button class="btn" @onclick="OnClicked"><Icon Type="Icon"/></button>
+
+@code {
+    [Parameter, EditorRequired]
+    public EventCallback OnClicked { get; set; } = default!;
+
+    [Parameter, EditorRequired]
+    public IconType Icon { get; set; } = default!;
+}

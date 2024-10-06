@@ -1,0 +1,47 @@
+﻿@page "/Categories"
+@using FinancialAudit.UI.OfflineApp.Components.Pages.Categories.Components
+@using FinancialAudit.UI.OfflineApp.Components.Pages.Categories.Models
+
+<div class="container">
+	<h1>Categories</h1>
+
+	<CategoryTable Data="@Data" SaveEdit="SaveEdit" />
+</div>
+
+
+@code {
+	[Inject]
+	public ICategoriesManager Manager { get; set; } = default!;
+	private List<CategoryVM> Data { get; set; } = [];
+
+
+	protected override async Task OnInitializedAsync()
+	{
+		var categories = await Manager.GetAll();
+		Data = categories.Select(c => (CategoryVM)c).ToList();
+	}
+
+
+	private async Task SaveEdit(CategoryVM category)
+	{
+		using var _ = category.Loader.StartLoader();
+		category.IsEditable = false;
+		if (category.BackingModel is null)
+			return;
+
+		var newModel = category.BackingModel with
+			{
+				Name = category.Name,
+				Description = category.Description,
+			};
+
+		var result = await Manager.SaveEdit(newModel);
+		if (result.IsFailure)
+		{
+			category.IsEditable = true;
+			return;
+		}
+
+		category.BackingModel = newModel;
+	}
+}

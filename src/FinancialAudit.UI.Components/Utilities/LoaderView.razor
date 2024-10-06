@@ -1,0 +1,20 @@
+
+@if (IsLoading)
+{
+    <div class="w-100 h-100 d-grid grid-center-items">
+        <ActivityIndicator />
+    </div>
+}
+else
+{
+    @RenderFragment
+}
+
+@code {
+
+    [Parameter]
+    public bool IsLoading { get; set; }
+
+    [Parameter]
+    public RenderFragment RenderFragment { get; set; } = default!;
+}
