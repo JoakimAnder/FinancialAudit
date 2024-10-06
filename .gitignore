@@ -396,3 +396,28 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+
+### VisualStudioCode ###
+
+!.vscode/*.code-snippets
+
+
+
+# Local History for Visual Studio Code
+
+
+
+# Built Visual Studio Code Extensions
+
+*.vsix
+
+
+
+### VisualStudioCode Patch ###
+
+# Ignore all local history of files
+
+.history
+
+.ionide
